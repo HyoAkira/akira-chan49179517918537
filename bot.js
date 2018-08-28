@@ -61,7 +61,7 @@ bot.on("message", function(message) { // when a message is sent
     }
 
     if (command == "kurabiye") { // creates the command cookie
-        if (args[1]) message.channel.send(args[1].toString()"," + message.author.toString() + "sana kurabiye ısmarladı! :cookie:" ) // sends the message saying someone has given someone else a cookie if someone mentions someone else
+        if (args[1]) message.channel.send(message.author.toString() + " kurabiye ısmarlıyor. " + args[1].toString() + "kurabiyenin tadını çıkar! :olamaz: :cookie:" ) // sends the message saying someone has given someone else a cookie if someone mentions someone else
         else message.channel.send("Kime kurabiye ısmarlamak istersin? :cookie: (Örnek Kullanım: >kurabiye @kullanıcıadı)") // sends the error message if no-one is mentioned
     }
 
