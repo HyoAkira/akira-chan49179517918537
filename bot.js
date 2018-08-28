@@ -1,6 +1,7 @@
-const Discord = require('discord.js');
-const client = new Discord.Client();
-const prefix = ">";
+const Discord = require("discord.js"); // use discord.js
+
+const BOT_TOKEN = "secret bot token :)" // bot's token
+const PREFIX = ">" // bot's prefix
 
 var eightball = [ // sets the answers to an eightball
     "yes!",
@@ -133,5 +134,7 @@ bot.on("message", function(message) { // when a message is sent
     }
 
 });
+
+
 // Bu olmak zorunda
-client.login(process.env.BOT_TOKEN);
+bot.login(process.env.BOT_TOKEN);
