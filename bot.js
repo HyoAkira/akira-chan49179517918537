@@ -5,6 +5,7 @@ client.on('ready', () => {
     console.log('I am ready!');
 });
 
+    var command = args[0].toLowerCase(); // sets the command to lowercase (making it incase sensitive)
 
 // Akira Yenilmez
 client.on('message', message => {
