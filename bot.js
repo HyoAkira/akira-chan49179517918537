@@ -11,5 +11,5 @@ client.on('message', message => {
   	}
 });
 
-// THIS  MUST  BE  THIS  WAY
+// Bu olmak zorunda
 client.login(process.env.BOT_TOKEN);
