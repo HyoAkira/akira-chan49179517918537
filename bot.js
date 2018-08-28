@@ -78,37 +78,7 @@ bot.on("message", function(message) { // when a message is sent
         message.channel.send(sayMessage);
     }
 
-        if (command == "havalandır") {
-    var newamount = "2";
-  } else {
-    var amount = Number(suffix);
-    var adding = 1;
-    var newamount = amount + adding;
-  }
-  let messagecount = newamount.toString();
-  msg.channel
-    .fetchMessages({
-      limit: messagecount
-    })
-    .then(messages => {
-      msg.channel.bulkDelete(messages);
-      // Logging the number of messages deleted on both the channel and console.
-      msg.channel
-        .send(
-          "Deletion of messages successful. \n Total messages deleted including command: " +
-            newamount
-        )
-        .then(message => message.delete(5000));
-      console.log(
-        "Deletion of messages successful. \n Total messages deleted including command: " +
-          newamount
-      );
-    })
-    .catch(err => {
-      console.log("Error while doing Bulk Delete");
-      console.log(err);
-    });
-
+    
     if (command == "mute") { // creates the command mute
         if (!message.member.roles.some(r=>["bot-admin"].includes(r.name)) ) return message.reply("Üzgünüm, bu komutu kullanabilecek kadar cool değilsin!"); // if author has no perms
         var mutedmember = message.mentions.members.first(); // sets the mentioned user to the var kickedmember
