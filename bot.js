@@ -34,26 +34,10 @@ client.on('message', msg => {
   }
 });
 
-// embed
-
-client.on('message', message =&gt; {
-if (message.content === 'embed') {
-// Eğer mesaj "embed" ise...
-let Embed = new Discord.RichEmbed() // Embed'i tanımladık.
-.setAuthor("Yukarıdaki Beyazımsı Yazı")
-.setDescription("Açıklama Mesajı")
-.setColor("#RENKKODU") 
-.setFooter("Alt yazı")
-.setThumbnail("Küçük Resim Linki")
-.setImage("Büyük Resim Linki")
-.addField("Başlık", "Başlık Açıklaması")
-.setTimestamp() //Tarih ve saat
- 
-// Kanala embedi gönder
-message.channel.send(Embed)
-  }
-});
-
+// bilgi
+  if (command == "akira hakkında") {
+        message.channel.send("Merhaba! Benim adım Akira ve bu sunucuda sana hizmet etmek için varım. Eğer bir yardıma ihtiyacın olursa >yardım komutu kullan. :olamaz:") // gives u info
+    }
 
 // Bu olmak zorunda
 client.login(process.env.BOT_TOKEN);
