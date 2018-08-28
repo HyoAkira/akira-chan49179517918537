@@ -78,24 +78,36 @@ bot.on("message", function(message) { // when a message is sent
         message.channel.send(sayMessage);
     }
 
-    if(command === "purge") {
-        let messagecount = parseInt(args[1]) || 1;
-
-        var deletedMessages = -1;
-
-        message.channel.fetchMessages({limit: Math.min(messagecount + 1, 100)}).then(messages => {
-            messages.forEach(m => {
-                if (m.author.id == bot.user.id) {
-                    m.delete().catch(console.error);
-                    deletedMessages++;
-                }
-            });
-        }).then(() => {
-                if (deletedMessages === -1) deletedMessages = 0;
-                message.channel.send(`:white_check_mark: Purged \`${deletedMessages}\` messages.`)
-                    .then(m => m.delete(2000));
-        }).catch(console.error);
-    }
+        if (command == "havalandır") {
+    var newamount = "2";
+  } else {
+    var amount = Number(suffix);
+    var adding = 1;
+    var newamount = amount + adding;
+  }
+  let messagecount = newamount.toString();
+  msg.channel
+    .fetchMessages({
+      limit: messagecount
+    })
+    .then(messages => {
+      msg.channel.bulkDelete(messages);
+      // Logging the number of messages deleted on both the channel and console.
+      msg.channel
+        .send(
+          "Deletion of messages successful. \n Total messages deleted including command: " +
+            newamount
+        )
+        .then(message => message.delete(5000));
+      console.log(
+        "Deletion of messages successful. \n Total messages deleted including command: " +
+          newamount
+      );
+    })
+    .catch(err => {
+      console.log("Error while doing Bulk Delete");
+      console.log(err);
+    });
 
     if (command == "mute") { // creates the command mute
         if (!message.member.roles.some(r=>["bot-admin"].includes(r.name)) ) return message.reply("Üzgünüm, bu komutu kullanabilecek kadar cool değilsin!"); // if author has no perms
