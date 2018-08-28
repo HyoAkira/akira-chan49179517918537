@@ -134,7 +134,7 @@ function resetBot(channel) {
     // send channel a message that you're resetting bot [optional]
     channel.send('Resetting...')
     .then(msg => client.destroy())
-    .then(() => client.login(<your bot token here>));
+    .then(() => client.login(process.env.BOT_TOKEN));
 }
 
 // Bu olmak zorunda
