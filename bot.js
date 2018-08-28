@@ -1,6 +1,6 @@
 const Discord = require("discord.js"); // use discord.js
 
-const BOT_TOKEN = "secret bot token :)" // bot's token
+const BOT_TOKEN = "process.env.BOT_TOKEN" // bot's token
 const PREFIX = ">" // bot's prefix
 
 var eightball = [ // sets the answers to an eightball
