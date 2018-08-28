@@ -17,7 +17,7 @@ var eightball = [ // sets the answers to an eightball
 var bot = new Discord.Client(); // sets Discord.Client to bot
 
 bot.on("ready", function() { // when the bot starts up, set its game to Use *help and tell the console "Booted up!"
-    bot.user.setGame("Use *info") // sets the game the bot is playing
+    bot.user.setGame(">yardım") // sets the game the bot is playing
     console.log("Booted up!") // messages the console Booted up!
 });
 
@@ -30,7 +30,7 @@ bot.on("message", function(message) { // when a message is sent
     var command = args[0].toLowerCase(); // sets the command to lowercase (making it incase sensitive)
     var mutedrole = message.guild.roles.find("name", "muted");
 
-    if (command == "help") { // creates a command *help
+    if (command == "yardım") { // creates a command *help
         var embedhelpmember = new Discord.RichEmbed() // sets a embed box to the variable embedhelpmember
             .setTitle("**List of Commands**\n") // sets the title to List of Commands
             .addField(" - help", "Displays this message (Correct usage: *help)") // sets the first field to explain the command *help
@@ -52,26 +52,26 @@ bot.on("message", function(message) { // when a message is sent
         if(message.member.roles.some(r=>["bot-admin"].includes(r.name)) ) return message.channel.send(embedhelpadmin); // if member is a botadmin, display this too
     }
 
-    if (command == "info") { // creates the command *info
-        message.channel.send("Hey! My name is cookie-bot and I'm here to assist you! You can do *help to see all of my commands! If you have any problems with the Minecraft/Discord server, you can contact an administrator! :smile:") // gives u info
+    if (command == "hakkında") { // creates the command *info
+        message.channel.send("Merhaba! Benim adım Akira, sana yardımcı olmak için buradayım! Ben herkesin yardımcısı Hyosuke'nin sevgilisiyim! Eğer yardıma ihtiyacın olursa >yardım komutunu kullan :olamaz: :smile:") // gives u info
     }
 
     if (command == "ping") { // creates a command *ping
-        message.channel.send("Pong!"); // answers with "Pong!"
+        message.channel.send("Boom!"); // answers with "Pong!"
     }
 
-    if (command == "cookie") { // creates the command cookie
-        if (args[1]) message.channel.send(message.author.toString() + " has given " + args[1].toString() + " a cookie! :cookie:") // sends the message saying someone has given someone else a cookie if someone mentions someone else
-        else message.channel.send("Who do you want to send a cookie to? :cookie: (Correct usage: *cookie @username)") // sends the error message if no-one is mentioned
+    if (command == "kurabiye") { // creates the command cookie
+        if (args[1]) message.channel.send(args[1].toString()"," + message.author.toString() + "sana kurabiye ısmarladı! :cookie:" ) // sends the message saying someone has given someone else a cookie if someone mentions someone else
+        else message.channel.send("Kime kurabiye ısmarlamak istersin? :cookie: (Örnek Kullanım: >kurabiye @kullanıcıadı)") // sends the error message if no-one is mentioned
     }
 
-    if (command == "8ball") { // creates the command 8ball
+    if (msg.content == "akira") { // creates the command 8ball
         if (args[1] != null) message.reply(eightball[Math.floor(Math.random() * eightball.length).toString(16)]); // if args[1], post random answer
-        else message.channel.send("Ummmm, what is your question? :rolling_eyes: (Correct usage: *8ball [question])"); // if not, error
+        else message.channel.send("Hmmm, Bana ne sormak istiyorsun? :rolling_eyes: (Doğru kullanım: Akira [soru])"); // if not, error
     }
 
-    if (command == "say") { // creates command say
-        if (!message.member.roles.some(r=>["bot-admin"].includes(r.name)) ) return message.reply("Sorry, you do not have the permission to do this!");
+    if (command == "söyle") { // creates command say
+        if (!message.member.roles.some(r=>["bot-admin"].includes(r.name)) ) return message.reply("Üzgünüm, beni pis işlerinize alet edemezsiniz!");
         var sayMessage = message.content.substring(4)
         message.delete().catch(O_o=>{});
         message.channel.send(sayMessage);
@@ -97,23 +97,23 @@ bot.on("message", function(message) { // when a message is sent
     }
 
     if (command == "mute") { // creates the command mute
-        if (!message.member.roles.some(r=>["bot-admin"].includes(r.name)) ) return message.reply("Sorry, you do not have the permission to do this!"); // if author has no perms
+        if (!message.member.roles.some(r=>["bot-admin"].includes(r.name)) ) return message.reply("Üzgünüm, bu komutu kullanabilecek kadar cool değilsin!"); // if author has no perms
         var mutedmember = message.mentions.members.first(); // sets the mentioned user to the var kickedmember
-        if (!mutedmember) return message.reply("Please mention a valid member of this server!") // if there is no kickedmmeber var
-        if (mutedmember.hasPermission("ADMINISTRATOR")) return message.reply("I cannot mute this member!") // if memebr is an admin
+        if (!mutedmember) return message.reply("Kullanıcıyı etiketlemeyi unuttun gibi!") // if there is no kickedmmeber var
+        if (mutedmember.hasPermission("ADMINISTRATOR")) return message.reply("Üyeyi susturamıyorum, avaz avaz bağırıyor!") // if memebr is an admin
         var mutereasondelete = 10 + mutedmember.user.id.length //sets the length of the kickreasondelete
         var mutereason = message.content.substring(mutereasondelete).split(" "); // deletes the first letters until it reaches the reason
         var mutereason = mutereason.join(" "); // joins the list kickreason into one line
-        if (!mutereason) return message.reply("Please indicate a reason for the mute!") // if no reason
+        if (!mutereason) return message.reply("Neden ceza verdiğini bildirmek zorundasın, çakallık yapayım deme!") // if no reason
         mutedmember.addRole(mutedrole) //if reason, kick
             .catch(error => message.reply(`Sorry ${message.author} I couldn't mute because of : ${error}`)); //if error, display error
-        message.reply(`${mutedmember.user} has been muted by ${message.author} because: ${mutereason}`); // sends a message saying he was kicked
+        message.reply(`${mutedmember.user}susturulmuştur. Susturan kişi: ${message.author} Sebeb: ${mutereason}`); // sends a message saying he was kicked
     }
 
     if (command == "unmute") { // creates the command unmute
-        if (!message.member.roles.some(r=>["bot-admin"].includes(r.name)) ) return message.reply("Sorry, you do not have the permission to do this!"); // if author has no perms
+        if (!message.member.roles.some(r=>["bot-admin"].includes(r.name)) ) return message.reply("Sadece sevgilimin sözünü dinlerim :smile:"); // if author has no perms
         var unmutedmember = message.mentions.members.first(); // sets the mentioned user to the var kickedmember
-        if (!unmutedmember) return message.reply("Please mention a valid member of this server!") // if there is no kickedmmeber var
+        if (!unmutedmember) return message.reply("üyeyi etiketlemeyi unuttun. Benim mutemi kaldırmayacaksın heralde!") // if there is no kickedmmeber var
         unmutedmember.removeRole(mutedrole) //if reason, kick
             .catch(error => message.reply(`Sorry ${message.author} I couldn't mute because of : ${error}`)); //if error, display error
         message.reply(`${unmutedmember.user} has been unmuted by ${message.author}!`); // sends a message saying he was kicked
