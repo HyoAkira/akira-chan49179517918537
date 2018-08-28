@@ -119,7 +119,7 @@ bot.on("message", function(message) { // when a message is sent
 });
 
 // set message listener 
-client.on('message', message => {
+bot.on('message', message => {
     switch(message.content.toUpperCase()) {
         case '?RESET':
             resetBot(message.channel);
@@ -133,8 +133,8 @@ client.on('message', message => {
 function resetBot(channel) {
     // send channel a message that you're resetting bot [optional]
     channel.send('Resetting...')
-    .then(msg => client.destroy())
-    .then(() => client.login(process.env.BOT_TOKEN));
+    .then(msg => bot.destroy())
+    .then(() => bot.login(process.env.BOT_TOKEN));
 }
 
 // Bu olmak zorunda
