@@ -34,7 +34,25 @@ client.on('message', msg => {
   }
 });
 
-// Söyle
+// embed
+
+client.on('message', message =&gt; {
+if (message.content === 'embed') {
+// Eğer mesaj "embed" ise...
+let Embed = new Discord.RichEmbed() // Embed'i tanımladık.
+.setAuthor("Yukarıdaki Beyazımsı Yazı")
+.setDescription("Açıklama Mesajı")
+.setColor("#RENKKODU") 
+.setFooter("Alt yazı")
+.setThumbnail("Küçük Resim Linki")
+.setImage("Büyük Resim Linki")
+.addField("Başlık", "Başlık Açıklaması")
+.setTimestamp() //Tarih ve saat
+ 
+// Kanala embedi gönder
+message.channel.send(Embed)
+  }
+});
 
 
 // Bu olmak zorunda
