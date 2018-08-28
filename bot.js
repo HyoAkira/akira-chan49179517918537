@@ -17,7 +17,7 @@ client.on('message', message => {
 // pingim kaç
 
 client.on('message', msg => {
-  if (msg.content.toLowerCase() === prefix + 'ping') {
+  if (msg.content.toLowerCase() === 'ping') {
     if (msg.channel.type !== "dm") {
       const ozelmesajkontrol = new Discord.RichEmbed()
     .setColor(0x00AE86)
