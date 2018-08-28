@@ -30,7 +30,7 @@ bot.on("message", function(message) { // when a message is sent
     var command = args[0].toLowerCase(); // sets the command to lowercase (making it incase sensitive)
     var mutedrole = message.guild.roles.find("name", "muted");
 
-    if (command == "yardım") { // creates a command *help
+    if (command == "help") { // creates a command *help
         var embedhelpmember = new Discord.RichEmbed() // sets a embed box to the variable embedhelpmember
             .setTitle("**List of Commands**\n") // sets the title to List of Commands
             .addField(" - help", "Displays this message (Correct usage: *help)") // sets the first field to explain the command *help
@@ -53,7 +53,7 @@ bot.on("message", function(message) { // when a message is sent
     }
 
     if (command == "hakkında") { // creates the command *info
-        message.channel.send("Merhaba! Benim adım Akira, sana yardımcı olmak için buradayım! Ben herkesin yardımcısı Hyosuke'nin sevgilisiyim! Eğer yardıma ihtiyacın olursa >yardım komutunu kullan :olamaz: :smile:") // gives u info
+        message.channel.send("Merhaba! Benim adım Akira, sana yardımcı olmak için buradayım! Ben herkesin yardımcısı Hyosuke'nin sevgilisiyim! Eğer yardıma ihtiyacın olursa >yardım komutunu kullan :smile:") // gives u info
     }
 
     if (command == "ping") { // creates a command *ping
@@ -61,7 +61,7 @@ bot.on("message", function(message) { // when a message is sent
     }
 
     if (command == "kurabiye") { // creates the command cookie
-        if (args[1]) message.channel.send(message.author.toString() + " kurabiye ısmarlıyor. " + args[1].toString() + "kurabiyenin tadını çıkar! :cookie:" ) // sends the message saying someone has given someone else a cookie if someone mentions someone else
+        if (args[1]) message.channel.send(message.author.toString() + " kurabiye ısmarlıyor. " + args[1].toString() + " kurabiyenin tadını çıkar! :cookie:" ) // sends the message saying someone has given someone else a cookie if someone mentions someone else
         else message.channel.send("Kime kurabiye ısmarlamak istersin? :cookie: (Örnek Kullanım: >kurabiye @kullanıcıadı)") // sends the error message if no-one is mentioned
     }
 
@@ -70,8 +70,8 @@ bot.on("message", function(message) { // when a message is sent
         else message.channel.send("Hmmm, Bana ne sormak istiyorsun? :rolling_eyes: (Doğru kullanım: Akira [soru])"); // if not, error
     }
 
-    if (command == "söyle") { // creates command say
-        if (!message.member.roles.some(r=>["bot-admin"].includes(r.name)) ) return message.reply("Üzgünüm, beni pis işlerinize alet edemezsiniz!");
+    if (command == "yaz") { // creates command say
+        if (!message.member.roles.some(r=>["bot-admin"].includes(r.name)) ) return message.reply("Üzgünüm, beni pis işlerine alet edemezsin!");
         var sayMessage = message.content.substring(4)
         message.delete().catch(O_o=>{});
         message.channel.send(sayMessage);
