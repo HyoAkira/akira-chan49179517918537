@@ -4,14 +4,14 @@ const BOT_TOKEN = "process.env.BOT_TOKEN" // bot's token
 const PREFIX = ">" // bot's prefix
 
 var eightball = [ // sets the answers to an eightball
-    "yes!",
-    "no...",
-    "maybe?",
-    "probably",
-    "I don't think so.",
-    "never!",
-    "you can try...",
-    "up to you!",
+    "Evet!",
+    "Hayır...",
+    "belki?",
+    "muhtemelen",
+    "Ben öyle düşünmüyorum.",
+    "asla!",
+    "denemelisin...",
+    "Sana bağlı!",
 ]
 
 var bot = new Discord.Client(); // sets Discord.Client to bot
