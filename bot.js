@@ -65,6 +65,11 @@ bot.on("message", function(message) { // when a message is sent
         if (args[1]) message.channel.send(message.author.toString() + " kurabiye ısmarlıyor. " + args[1].toString() + " kurabiyenin tadını çıkar! :cookie:" ) // sends the message saying someone has given someone else a cookie if someone mentions someone else
         else message.channel.send("Kime kurabiye ısmarlamak istersin? :cookie: (Örnek Kullanım: >kurabiye @kullanıcıadı)") // sends the error message if no-one is mentioned
     }
+    
+     if (command == "ramen") { // creates the command cookie
+        if (args[1]) message.channel.send(message.author.toString() + " ramen ısmarlıyor. " + args[1].toString() + " ramenin tadını çıkar! :ramen:" ) // sends the message saying someone has given someone else a cookie if someone mentions someone else
+        else message.channel.send("Kime ramen ısmarlamak istersin? :cookie: (Örnek Kullanım: >ramen @kullanıcıadı)") // sends the error message if no-one is mentioned
+    }
 
     if (command == "akira") { // creates the command 8ball
         if (args[1] != null) message.reply(eightball[Math.floor(Math.random() * eightball.length).toString(16)]); // if args[1], post random answer
