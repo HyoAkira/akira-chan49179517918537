@@ -70,10 +70,14 @@ bot.on("message", function(message) { // when a message is sent
         message.channel.send("Merhaba! Benim adım Akira, sana yardımcı olmak için buradayım! Ben herkesin yardımcısı Hyosuke'nin sevgilisiyim! Eğer yardıma ihtiyacın olursa >yardım komutunu kullan :smile:") // gives u info
     }
 
-    if(command === "ping") {
-        const m = await message.channel.send("Ping?");
-        m.edit(`Boom! Gecikme ${m.createdTimestamp - message.createdTimestamp}ms. Discord Kalp Ritmi ${Math.round(client.ping)}ms`);
-      }
+    bot.on('message', message => {
+        if (message.author.bot) return;
+        if (!message.content.startsWith(prefix)) return;
+    
+        if (message.content.startsWith(prefix + 'ping')) {
+            message.channel.sendMessage('Pong! Senin kalp ritmin `' + `${Date.now() - message.createdTimestamp}` + ' ms :heartbeat:`');
+        }
+    });
 
     if (command == "kurabiye") { // creates the command cookie
         if (args[1]) message.channel.send(message.author.toString() + " kurabiye ısmarlıyor. " + args[1].toString() + " kurabiyenin tadını çıkar! :cookie:" ) // sends the message saying someone has given someone else a cookie if someone mentions someone else
@@ -82,7 +86,7 @@ bot.on("message", function(message) { // when a message is sent
     
      if (command == "ramen") { // creates the command cookie
         if (args[1]) message.channel.send(message.author.toString() + " ramen ısmarlıyor. " + args[1].toString() + " ramenin tadını çıkar! :ramen:" ) // sends the message saying someone has given someone else a cookie if someone mentions someone else
-        else message.channel.send("Kime ramen ısmarlamak istersin? :cookie: (Örnek Kullanım: >ramen @kullanıcıadı)") // sends the error message if no-one is mentioned
+        else message.channel.send("Kime ramen ısmarlamak istersin? :ramen: (Örnek Kullanım: >ramen @kullanıcıadı)") // sends the error message if no-one is mentioned
     }
 
     if (command == "akira") { // creates the command 8ball
