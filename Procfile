@@ -1,2 +1,2 @@
 worker: node bot.js
-worker: nodemon bot.js
+worker: npm install -g nodemon
