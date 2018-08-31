@@ -2,7 +2,7 @@ const Discord = require("discord.js"); // use discord.js
 
 const BOT_TOKEN = "process.env.BOT_TOKEN" // bot's token
 const PREFIX = ">" // bot's prefix
-
+var prefix = ">"
 
 var eightball = [ // sets the answers to an eightball
     "Evet!",
