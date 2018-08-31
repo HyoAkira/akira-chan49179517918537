@@ -70,9 +70,10 @@ bot.on("message", function(message) { // when a message is sent
         message.channel.send("Merhaba! Benim adım Akira, sana yardımcı olmak için buradayım! Ben herkesin yardımcısı Hyosuke'nin sevgilisiyim! Eğer yardıma ihtiyacın olursa >yardım komutunu kullan :smile:") // gives u info
     }
 
-    if (command == "ping") { // creates a command *ping
-        message.channel.send("Boom!"); // answers with "Pong!"
-    }
+    if(command === "ping") {
+        const m = await message.channel.send("Ping?");
+        m.edit(`Boom! Gecikme ${m.createdTimestamp - message.createdTimestamp}ms. Discord Kalp Ritmi ${Math.round(client.ping)}ms`);
+      }
 
     if (command == "kurabiye") { // creates the command cookie
         if (args[1]) message.channel.send(message.author.toString() + " kurabiye ısmarlıyor. " + args[1].toString() + " kurabiyenin tadını çıkar! :cookie:" ) // sends the message saying someone has given someone else a cookie if someone mentions someone else
@@ -204,6 +205,47 @@ bot.on('message', msg => {
       }
     }
   });
+
+  //kick
+  if(command === "kick") {
+   
+    if(!message.member.roles.some(r=>["bot-admin"].includes(r.name)) )
+      return message.reply("Kendini bişey mi sanıyorsun da bana emir veriyorsun hıh küstüm");
+    
+    let member = message.mentions.members.first() || message.guild.members.get(args[0]);
+    if(!member)
+      return message.reply("Lütfen geçerli birini etiketle");
+    if(!member.kickable) 
+      return message.reply("Heyy, Ben bu etiketlediğin kişinin kıçına tekmeyi basamıyorum. Lanet olsun içimde kaldı :rage:");
+    
+    // slice(1) removes the first part, which here should be the user mention or ID
+    // join(' ') takes all the various parts to make it a single string.
+    let reason = args.slice(1).join(' ');
+    if(!reason) reason = "Onu bu sunucudan atmak için bir sebebin olmalı";
+    
+    // Now, time for a swift kick in the nuts!
+    await member.kick(reason)
+      .catch(error => message.reply(`Sorry ${message.author} I couldn't kick because of : ${error}`));
+    message.reply(`${member.user.tag} adlı arkadaşımız ${message.author.tag} tarafından atılmıştır.  Çünkü: ${reason}`);
+
+  }  
+
+// purge
+if(command === "havalandır") {
+    // This command removes all messages from all users in the channel, up to 100.
+    
+    // get the delete count, as an actual number.
+    const deleteCount = parseInt(args[0], 10);
+    
+    // Ooooh nice, combined conditions. <3
+    if(!deleteCount || deleteCount < 2 || deleteCount > 1000)
+      return message.reply("2 ile 1000 arasında bir sayı yazmalısın.");
+    
+    // So we get our messages, and delete them. Simple enough, right?
+    const fetched = await message.channel.fetchMessages({limit: deleteCount});
+    message.channel.bulkDelete(fetched)
+      .catch(error => message.reply(`Mesajları silemiyorum: ${error}`));
+  };
 
 // Bu olmak zorunda
 bot.login(process.env.BOT_TOKEN);
