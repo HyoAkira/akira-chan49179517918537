@@ -210,29 +210,7 @@ bot.on('message', msg => {
     }
   });
 
-  //kick
-  if(command === "kick") {
-   
-    if(!message.member.roles.some(r=>["bot-admin"].includes(r.name)) )
-      return message.reply("Kendini bişey mi sanıyorsun da bana emir veriyorsun hıh küstüm");
-    
-    let member = message.mentions.members.first() || message.guild.members.get(args[0]);
-    if(!member)
-      return message.reply("Lütfen geçerli birini etiketle");
-    if(!member.kickable) 
-      return message.reply("Heyy, Ben bu etiketlediğin kişinin kıçına tekmeyi basamıyorum. Lanet olsun içimde kaldı :rage:");
-    
-    // slice(1) removes the first part, which here should be the user mention or ID
-    // join(' ') takes all the various parts to make it a single string.
-    let reason = args.slice(1).join(' ');
-    if(!reason) reason = "Onu bu sunucudan atmak için bir sebebin olmalı";
-    
-    // Now, time for a swift kick in the nuts!
-    await member.kick(reason)
-      .catch(error => message.reply(`Sorry ${message.author} I couldn't kick because of : ${error}`));
-    message.reply(`${member.user.tag} adlı arkadaşımız ${message.author.tag} tarafından atılmıştır.  Çünkü: ${reason}`);
 
-  }  
 
 // purge
 if(command === "havalandır") {
