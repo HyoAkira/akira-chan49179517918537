@@ -157,58 +157,53 @@ function resetBot(channel) {
 
 // mesaj silme
 bot.on('message', msg => {
-    if (msg.content.toLowerCase() === prefix + 'temizle') {
-      if (msg.channel.type === 'dm') {
-        const ozelmesajuyari = new Discord.RichEmbed()
+    if (msg.content.toLowerCase() === prefix + 'kullanıcıbilgim')
+      if (msg.channel.type !== "group") {
+          var Durum = msg.author.presence.status;
+          var Durm = (Durum == "online" ? (0x00AE86) : (Durum == "offline" ? (0x808080) : (Durum == "idle" ? (0xFFFF00) : (Durum == "dnd" ? (0xFF0000) : (0x00AE86)))))
+          var durm = (Durum == "online" ? ("Çevrimiçi") : (Durum == "offline" ? ("Çevrimdışı") : (Durum == "idle" ? ("Boşta") : (Durum == "dnd" ? ("Rahatsız Etmeyin") : ("Bilinmiyor/bulunamadı.")))))
+        const kullanicibilgimk = new Discord.RichEmbed()
+        .setAuthor(msg.author.username, msg.author.avatarURL)
+        .setColor(Durm)
+        .setTimestamp()
+        .addField('Ad:', msg.author.username + '#' + msg.author.discriminator)
+        .addField('ID:', msg.author.id)
+        .addField('Kayıt tarihi:', msg.author.createdAt)
+        .addField('Durum:', durm)
+        .addField('Şu an oynadığı oyun:', msg.author.presence.game ? msg.author.presence.game.name : 'Şu an oyun oynamıyor')
+        .addField('BOT mu?', msg.author.bot ? '\n Evet' : 'Hayır')
+        console.log("!kullanıcıbilgim komutu " + msg.author.username + " tarafından kullanıldı.")
+        return msg.channel.sendEmbed(kullanicibilgimk);
+    }
+  });
+  
+//snucu bilgi
+bot.on('message', msg => {
+    if (msg.content.toLowerCase() === prefix + 'sunucubilgi') {
+      if  (msg.channel.type === 'dm') {
+        const ozelmesajuyarii = new Discord.RichEmbed()
       .setColor(0xFF0000)
       .setTimestamp()
       .setAuthor(msg.author.username, msg.author.avatarURL)
       .addField(':warning: Uyarı :warning:', 'Bu komutu özel mesajlarda kullanamazsın.')
-      msg.author.sendEmbed(ozelmesajuyari); }
-        if (msg.channel.type !== 'dm') {
-          if (!msg.member.hasPermission("MANAGE_MESSAGES")) {
-            if (msg.author.id !== ayarlar.yapimci) {
-              const mesajlariyonet = new Discord.RichEmbed()
-            .setColor(0xFF0000)
-            .setTimestamp()
-            .setAuthor(msg.author.username, msg.author.avatarURL)
-            .addField(':warning: Uyarı :warning:', 'Bu komutu kulllanmak için `Mesajları Yönet` iznine sahip olmalısın.')
-            return msg.author.sendEmbed(mesajlariyonet);
-        }}
-        msg.channel.bulkDelete(100);
-        msg.channel.bulkDelete(100);
-        msg.channel.bulkDelete(100);
-        msg.channel.bulkDelete(100);
-        msg.channel.bulkDelete(100);
-        msg.channel.bulkDelete(100);
-        msg.channel.bulkDelete(100);
-        msg.channel.bulkDelete(100);
-        msg.channel.bulkDelete(100);
-        msg.channel.bulkDelete(100); //1000 mesaj gg
-        const sohbetsilindi = new Discord.RichEmbed()
+      msg.author.sendEmbed(ozelmesajuyarii); }
+      if (msg.channel.type !== 'dm') {
+        const sunucubilgi = new Discord.RichEmbed()
       .setColor(0x00AE86)
       .setTimestamp()
-      .addField('Eylem:', 'Sohbet silme')
-      .addField('Yetkili:', msg.author.username)
-      .addField('Sonuç:', `Başarılı`)
-      return msg.channel.sendEmbed(sohbetsilindi);
-        console.log("Sohbet " + msg.member + " tarafından silindi!");
-  }}});
-  
-  bot.on('message', msg => {
-    if (msg.content.toLowerCase() === prefix + 'reload') {
-      if (msg.author.id !== ayarlar.yapimci) {
-        const blnmyn = new Discord.RichEmbed()
-      .setColor(0xFF0000)
-      .setTimestamp()
-      .setAuthor(msg.author.username, msg.author.avatarURL)
-      .addField(':warning: Uyarı :warning:', 'Bu komutu kullanabilmek için `Bot Sahibi` yetkisine sahip olmalısın.')
-      return msg.channel.sendEmbed(blnmyn);
+      .setAuthor(msg.guild.name, msg.guild.iconURL)
+      .addField('Ad:', msg.guild.name)
+      .addField('ID', msg.guild.id)
+      .addField('Ana kanal:', msg.guild.defaultChannel)
+      .addField('Bölge', msg.guild.region)
+      .addField('Üye sayısı:', msg.guild.memberCount)
+      .addField('Sahibi:', msg.guild.owner)
+      .addField('Kanal sayısı:', msg.guild.channels.size)
+      .addField('Oluşturulma tarihi:', msg.guild.createdAt)
+      return  msg.channel.sendEmbed(sunucubilgi);
       }
-      process.exit(1).catch(console.error);
     }
   });
-  
 
 // Bu olmak zorunda
 bot.login(process.env.BOT_TOKEN);
