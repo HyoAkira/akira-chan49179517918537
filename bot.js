@@ -1,28 +1,9 @@
 const Discord = require("discord.js"); // use discord.js
-const fs = require("fs");
+
 const BOT_TOKEN = "process.env.BOT_TOKEN" // bot's token
 const PREFIX = ">" // bot's prefix
-bot.commands = new Discord.Collection();
-// FS
-
-fs.readdir("./commands/", (err, files) => {
-    if(err) console.log(err);
-
-    let jsfile = files.filter(f => f.split(".").pop() === "js" )
-    if (jsfile.length <= 0){
-        console.log("Aradığınız komutu bulamadım.")
-        return;
-    }
-    jsfile.forEach((f, i) =>{
-    let props = require(`./commands/${f}`);
-    console.log(`${f} aktif!`);
-    bot.commands.set(props.help.name, props);
-
-    })
-})
-
-let commandfile = bot.commands.get(cmd.slice(prefix.length));
-if(commandfile) commandfile.run(bot,message,args)
+const chalk = require('chalk');
+const moment = require('moment');
 
 var eightball = [ // sets the answers to an eightball
     "Evet!",
@@ -37,12 +18,24 @@ var eightball = [ // sets the answers to an eightball
 
 var bot = new Discord.Client(); // sets Discord.Client to bot
 
-bot.on("ready", function() { // when the bot starts up, set its game to Use *help and tell the console "Booted up!"
-      bot.user.setGame('>yardım')
-      bot.user.setStatus('Hyosukenin biricik sevgilisi')
-    console.log("Uçmaya hazır mıyız!") // messages the console Booted up!
-});
+bot.on('ready', () => {
+    console.log(`BOT: Aktif!`);
+    console.log(`BOT: ${bot.user.username} ismi ile giriş yapıldı!`);
+    bot.user.setGame(prefix + 'yardım');
+    console.log(`BOT: Oyun ismi ayarlandı!`);
+    bot.user.setStatus("dnd");
+    console.log(`BOT: Mesaj gönderildi!`);
+    console.log("BOT: Şu an " + bot.channels.size + " adet kanala ve " + bot.guilds.size + " adet sunucuya hizmet veriliyor!");
+  });
 
+  function clean(text) {
+    if (typeof(text) === "string")
+      return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
+    else
+        return text;
+  }
+  
+  
 bot.on("message", function(message) { // when a message is sent
     if (message.author.equals(bot.user)) return; // if the message is sent by a bot, ignore
 
@@ -163,9 +156,45 @@ function resetBot(channel) {
     .then(() => bot.login(process.env.BOT_TOKEN));
 }
 
-// Command Handler
-
-
+// mesaj silme
+if (command == "havalandır") {
+    if (msg.content.toLowerCase() === prefix + 'temizle') {
+        if (msg.channel.type === 'dm') {
+          const ozelmesajuyari = new Discord.RichEmbed()
+        .setColor(0xFF0000)
+        .setTimestamp()
+        .setAuthor(msg.author.username, msg.author.avatarURL)
+        .addField(':warning: Uyarı :warning:', 'Bu komutu özel mesajlarda kullanamazsın.')
+        msg.author.sendEmbed(ozelmesajuyari); }
+          if (msg.channel.type !== 'dm') {
+            if (!msg.member.hasPermission("MANAGE_MESSAGES")) {
+              if (msg.author.id !== ayarlar.yapimci) {
+                const mesajlariyonet = new Discord.RichEmbed()
+              .setColor(0xFF0000)
+              .setTimestamp()
+              .setAuthor(msg.author.username, msg.author.avatarURL)
+              .addField(':warning: Uyarı :warning:', 'Bu komutu kulllanmak için `Mesajları Yönet` iznine sahip olmalısın.')
+              return msg.author.sendEmbed(mesajlariyonet);
+          }}
+          msg.channel.bulkDelete(100);
+          msg.channel.bulkDelete(100);
+          msg.channel.bulkDelete(100);
+          msg.channel.bulkDelete(100);
+          msg.channel.bulkDelete(100);
+          msg.channel.bulkDelete(100);
+          msg.channel.bulkDelete(100);
+          msg.channel.bulkDelete(100);
+          msg.channel.bulkDelete(100);
+          msg.channel.bulkDelete(100); //1000 mesaj gg
+          const sohbetsilindi = new Discord.RichEmbed()
+        .setColor(0x00AE86)
+        .setTimestamp()
+        .addField('Eylem:', 'Sohbet silme')
+        .addField('Yetkili:', msg.author.username)
+        .addField('Sonuç:', `Başarılı`)
+        return msg.channel.sendEmbed(sohbetsilindi);
+          console.log("Sohbet " + msg.member + " tarafından silindi!");
+    }}};
 
 // Bu olmak zorunda
 bot.login(process.env.BOT_TOKEN);
