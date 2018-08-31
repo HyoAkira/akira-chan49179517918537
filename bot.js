@@ -1,7 +1,28 @@
 const Discord = require("discord.js"); // use discord.js
-
+const fs = require("fs");
 const BOT_TOKEN = "process.env.BOT_TOKEN" // bot's token
 const PREFIX = ">" // bot's prefix
+bot.commands = new Discord.Collection();
+// FS
+
+fs.readdir("./commands/", (err, files) => {
+    if(err) console.log(err);
+
+    let jsfile = files.filter(f => f.split(".").pop() === "js" )
+    if (jsfile.length <= 0){
+        console.log("Aradığınız komutu bulamadım.")
+        return;
+    }
+    jsfile.forEach((f, i) =>{
+    let props = require(`./commands/${f}`);
+    console.log(`${f} aktif!`);
+    bot.commands.set(props.help.name, props);
+
+    })
+})
+
+let commandfile = bot.commands.get(cmd.slice(prefix.length));
+if(commandfile) commandfile.run(bot,message,args)
 
 var eightball = [ // sets the answers to an eightball
     "Evet!",
@@ -142,29 +163,8 @@ function resetBot(channel) {
     .then(() => bot.login(process.env.BOT_TOKEN));
 }
 
-// mesaj silme
-exports.run = function(client, message, args) {
+// Command Handler
 
-      if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.reply("Hayır.");
-      if(!args[0]) return message.channel.send("hayır");
-      message.channel.bulkDelete(args[0]).then(() => {
-      message.channel.send(`${args[0]} mesaj temizlendi.`).then(msg => msg.delete(2000));
-    });
-
-    }
-
-exports.conf = {
-  enabled: true,
-  guildOnly: true,
-  aliases: ['clear','prune'],
-  permLevel: 2
-};
-
-exports.help = {
-  name: 'temizle',
-  description: 'Belirlenen miktar mesajı siler.',
-  usage: 'temizle <temizlenecek mesaj sayısı>'
-};
 
 
 // Bu olmak zorunda
