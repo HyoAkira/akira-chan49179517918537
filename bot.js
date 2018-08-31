@@ -156,7 +156,7 @@ function resetBot(channel) {
 }
 
 // mesaj silme
-client.on('message', msg => {
+bot.on('message', msg => {
     if (msg.content.toLowerCase() === prefix + 'temizle') {
       if (msg.channel.type === 'dm') {
         const ozelmesajuyari = new Discord.RichEmbed()
@@ -195,7 +195,7 @@ client.on('message', msg => {
         console.log("Sohbet " + msg.member + " tarafından silindi!");
   }}});
   
-  client.on('message', msg => {
+  bot.on('message', msg => {
     if (msg.content.toLowerCase() === prefix + 'reload') {
       if (msg.author.id !== ayarlar.yapimci) {
         const blnmyn = new Discord.RichEmbed()
