@@ -212,22 +212,7 @@ bot.on('message', msg => {
 
 
 
-// purge
-if(command === "havalandır") {
-    // This command removes all messages from all users in the channel, up to 100.
-    
-    // get the delete count, as an actual number.
-    const deleteCount = parseInt(args[0], 10);
-    
-    // Ooooh nice, combined conditions. <3
-    if(!deleteCount || deleteCount < 2 || deleteCount > 1000)
-      return message.reply("2 ile 1000 arasında bir sayı yazmalısın.");
-    
-    // So we get our messages, and delete them. Simple enough, right?
-    const fetched = await message.channel.fetchMessages({limit: deleteCount});
-    message.channel.bulkDelete(fetched)
-      .catch(error => message.reply(`Mesajları silemiyorum: ${error}`));
-  };
+
 
 // Bu olmak zorunda
 bot.login(process.env.BOT_TOKEN);
